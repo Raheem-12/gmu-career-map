@@ -1,0 +1,496 @@
+@import "tailwindcss";
+
+/* =========================================================
+   HYPERLANE
+   Global application styles
+   ========================================================= */
+
+:root {
+  font-family:
+    "JetBrains Mono",
+    "Fira Code",
+    "Cascadia Code",
+    Consolas,
+    monospace;
+
+  color: #e2e8f0;
+  background: #03060c;
+  color-scheme: dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --hyperlane-background: #03060c;
+  --hyperlane-panel: #080e17;
+  --hyperlane-border: #1e293b;
+  --hyperlane-text: #e2e8f0;
+  --hyperlane-muted: #94a3b8;
+  --hyperlane-green: #34d399;
+  --hyperlane-gold: #cbbb71;
+}
+
+/* Keep Tailwind's font-mono utility consistent with the app. */
+@theme {
+  --font-mono:
+    "JetBrains Mono",
+    "Fira Code",
+    "Cascadia Code",
+    Consolas,
+    monospace;
+}
+
+/* =========================================================
+   Viewport and base elements
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--hyperlane-background);
+}
+
+body {
+  min-width: 320px;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--hyperlane-background);
+}
+
+#root {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+/* Fallback for browsers without dynamic viewport units. */
+.h-dvh {
+  height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  .h-dvh {
+    height: 100dvh;
+  }
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+button,
+a,
+input,
+select,
+textarea,
+summary {
+  touch-action: manipulation;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--hyperlane-green);
+  outline-offset: 3px;
+}
+
+input[type="checkbox"] {
+  flex-shrink: 0;
+  accent-color: var(--hyperlane-green);
+}
+
+summary {
+  cursor: pointer;
+}
+
+summary::marker {
+  color: var(--hyperlane-muted);
+}
+
+svg {
+  flex-shrink: 0;
+}
+
+::selection {
+  background: rgba(52, 211, 153, 0.25);
+  color: #f8fafc;
+}
+
+/* =========================================================
+   Scrolling and reading surfaces
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 #050810;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050810;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 1px solid #050810;
+  background: #334155;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+::-webkit-scrollbar-corner {
+  background: #050810;
+}
+
+#course-intelligence,
+#galaxy-workspace {
+  min-width: 0;
+  min-height: 0;
+}
+
+#intelligence-reading-surface {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+#intelligence-reading-surface p,
+#intelligence-reading-surface dd,
+#intelligence-reading-surface li,
+#intelligence-reading-surface h2,
+#intelligence-reading-surface h3,
+#intelligence-reading-surface h4 {
+  overflow-wrap: break-word;
+}
+
+#intelligence-reading-surface article {
+  min-width: 0;
+}
+
+/* =========================================================
+   Galaxy canvas
+   ========================================================= */
+
+#galaxy-canvas {
+  min-width: 0;
+  min-height: 0;
+  isolation: isolate;
+  background: var(--hyperlane-background);
+}
+
+.react-flow {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  font-family: var(--font-mono);
+
+  --xy-background-color: transparent;
+  --xy-edge-stroke: #53647a;
+  --xy-edge-stroke-width: 1;
+  --xy-connectionline-stroke: #8295a9;
+
+  --xy-controls-button-background-color: #080e17;
+  --xy-controls-button-background-color-hover: #111c2a;
+  --xy-controls-button-color: #94a3b8;
+  --xy-controls-button-color-hover: #e2e8f0;
+  --xy-controls-button-border-color: #1e293b;
+
+  --xy-minimap-background-color: #060c15;
+  --xy-minimap-mask-background-color: rgba(3, 6, 12, 0.72);
+
+  --xy-attribution-background-color: rgba(6, 11, 18, 0.88);
+}
+
+.react-flow__pane {
+  cursor: grab;
+}
+
+.react-flow__pane.dragging {
+  cursor: grabbing;
+}
+
+.react-flow__node {
+  font-family: var(--font-mono);
+}
+
+.react-flow__node-course {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.react-flow__node-course.dragging {
+  cursor: grabbing;
+}
+
+/*
+ * App.jsx owns the selected course's white border.
+ * Keyboard focus remains visible without changing its color.
+ */
+.react-flow__node-course:focus {
+  outline: none;
+}
+
+.react-flow__node-course:focus-visible {
+  outline: 1px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.react-flow__node-course.selected {
+  background: transparent;
+  box-shadow: none;
+}
+
+.react-flow__edge-path {
+  transition:
+    stroke 180ms ease,
+    stroke-opacity 180ms ease,
+    stroke-width 180ms ease;
+}
+
+.react-flow__handle {
+  border-radius: 50%;
+}
+
+/*
+ * Do not apply hover transforms to handles.
+ * Their exact coordinates anchor the star-to-star hyperlanes.
+ */
+.react-flow__handle:hover {
+  box-shadow: none;
+}
+
+.react-flow__selection,
+.react-flow__nodesselection-rect {
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(148, 163, 184, 0.06);
+}
+
+/* =========================================================
+   React Flow navigation controls
+   ========================================================= */
+
+.react-flow__controls {
+  overflow: hidden;
+  border: 1px solid var(--hyperlane-border);
+  border-radius: 0;
+  background: var(--hyperlane-panel);
+  box-shadow: none;
+}
+
+.react-flow__controls-button {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-bottom: 1px solid var(--hyperlane-border);
+  border-radius: 0;
+  background: var(--hyperlane-panel);
+  color: var(--hyperlane-muted);
+  fill: currentColor;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.react-flow__controls-button:last-child {
+  border-bottom: 0;
+}
+
+.react-flow__controls-button:hover {
+  background: #111c2a;
+  color: #e2e8f0;
+  fill: currentColor;
+}
+
+.react-flow__controls-button svg {
+  width: 13px;
+  height: 13px;
+  max-width: 13px;
+  max-height: 13px;
+  fill: currentColor;
+}
+
+.react-flow__controls-button:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--hyperlane-green);
+  outline-offset: -3px;
+}
+
+.react-flow__controls-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+/* =========================================================
+   React Flow minimap and attribution
+   ========================================================= */
+
+.react-flow__minimap {
+  overflow: hidden;
+  border: 1px solid var(--hyperlane-border);
+  border-radius: 0;
+  background: #060c15;
+  box-shadow: none;
+}
+
+.react-flow__minimap svg {
+  display: block;
+}
+
+.react-flow__minimap-node {
+  transition:
+    fill 180ms ease,
+    stroke 180ms ease;
+}
+
+.react-flow__minimap-mask {
+  stroke: rgba(148, 163, 184, 0.2);
+  stroke-width: 1;
+}
+
+.react-flow__attribution {
+  border-radius: 0;
+  padding: 2px 5px;
+  background: rgba(6, 11, 18, 0.88);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  line-height: 12px;
+}
+
+.react-flow__attribution a {
+  color: #94a3b8;
+  text-decoration: none;
+}
+
+.react-flow__attribution a:hover {
+  color: #e2e8f0;
+}
+
+.react-flow__attribution a:focus-visible {
+  outline-offset: 1px;
+}
+
+/* =========================================================
+   Telemetry legend dialog
+   ========================================================= */
+
+dialog {
+  font-family: var(--font-mono);
+  color-scheme: dark;
+}
+
+dialog:not([open]) {
+  display: none;
+}
+
+dialog[open] {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+/* =========================================================
+   Responsive interaction
+   ========================================================= */
+
+@media (pointer: coarse) {
+  .react-flow__controls-button {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 767px) {
+  #intelligence-reading-surface {
+    scrollbar-gutter: auto;
+  }
+
+  .react-flow__attribution {
+    font-size: 7px;
+  }
+}
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   Galaxy ambient motion
+   ========================================================= */
+
+@keyframes hyperlane-nebula {
+  0% {
+    transform: translate3d(-1%, -0.5%, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(1.5%, 1%, 0) scale(1.025);
+  }
+}
+
+@keyframes hyperlane-stars {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-0.8%, 0.6%, 0);
+  }
+}
