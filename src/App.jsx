@@ -288,7 +288,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Builds the programming foundation used throughout the Computer Science degree.",
+      "You learn how to turn a problem into instructions a computer can execute. That means working with variables, data types, conditionals, loops, functions, basic data structures, input/output, and debugging. More importantly, you begin learning computational thinking: breaking a larger problem into smaller steps, tracing what a program is doing, and correcting it when the behavior does not match your intent.",
 
     why:
 
@@ -316,7 +316,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Develops larger programs using object-oriented design and stronger software organization.",
+      "You move from small introductory programs toward larger programs made of interacting objects and components. You learn how classes, objects, methods, interfaces, inheritance, encapsulation, and abstraction help organize software. The deeper lesson is how to divide a program into pieces with clear responsibilities so that the code is easier to understand, change, test, and reuse.",
 
     why:
 
@@ -344,7 +344,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Studies the structures and algorithms used to organize and manipulate data efficiently.",
+      "You learn different ways to organize data and the algorithms used to work with it. Lists, stacks, queues, trees, hash tables, graphs, searching, and sorting are not just structures to memorize; each creates different performance and design tradeoffs. You also learn to reason about how choices affect runtime, memory use, and the behavior of software as the amount of data grows.",
 
     why:
 
@@ -372,7 +372,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Connects software to lower-level computer systems, memory, and execution.",
+      "You learn what happens beneath high-level application code. Working closer to the machine exposes memory layout, pointers, C programming, data representation, compilation, and the relationship between a running program and the underlying computer system. The course helps replace the idea that code simply 'runs' with a clearer model of how software uses memory and system resources.",
 
     why:
 
@@ -400,7 +400,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Applies engineering practices to the design and development of larger software systems.",
+      "You learn how software is engineered as a team rather than written as a one-person programming assignment. The course connects requirements, design, architecture, version control, implementation, testing, documentation, and iterative development. You practice turning an idea or customer need into a maintainable system while coordinating technical decisions with other developers.",
 
     why:
 
@@ -428,7 +428,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Focuses on techniques for verifying software behavior and maintaining reliable systems.",
+      "You learn how engineers gain confidence that software behaves correctly and continues behaving correctly as it changes. That includes systematic testing, selecting useful test cases, reasoning about failures, regression testing, and maintaining existing software. The focus shifts from 'does my code run?' to 'how can a team repeatedly verify that this system still works?'",
 
     why:
 
@@ -456,7 +456,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Explores how computers communicate across networks and the protocols that make that communication possible.",
+      "You learn how data travels between computers and how network protocols make communication reliable and understandable. Topics connect application communication to transport, addressing, routing, packet delivery, and the layered network model. The goal is to understand what must happen between a client sending a request and a remote service receiving and responding to it.",
 
     why:
 
@@ -484,7 +484,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Examines security concepts through the design and implementation of software and computer systems.",
+      "You learn how security problems emerge in software and computer systems and how secure design reduces those risks. The course connects secure programming with cryptographic foundations, authentication and protection mechanisms, common weaknesses, and attacker thinking. Instead of treating security as a product added at the end, you learn to reason about what can go wrong while a system is being designed and implemented.",
 
     why:
 
@@ -512,7 +512,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Studies the operating-system mechanisms that manage processes, memory, storage, and shared computing resources.",
+      "You learn how an operating system manages the computer underneath your applications. That includes how processes are created and scheduled, how multiple threads execute concurrently, how memory is allocated and isolated, how files and storage are managed, and how programs share hardware and system resources. These concepts explain much of what is happening between application code and the physical machine.",
 
     why:
 
@@ -540,7 +540,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Explores computation involving concurrent execution and systems distributed across multiple machines.",
+      "You learn what changes when computation happens at the same time or across multiple machines. Concurrency introduces coordination, synchronization, races, and shared-state problems; distributed systems add networking, partial failures, communication delays, and multiple independent machines. The course teaches you to reason about systems where there is no longer one simple sequence of execution.",
 
     why:
 
@@ -570,7 +570,7 @@ const COURSE_CATALOG = {
 
     summary:
 
-      "Uses mathematical reasoning to compare the computational resource requirements of algorithms and their associated data structures, and to analyze and improve algorithms.",
+      "You learn how to analyze algorithms mathematically instead of judging them only by whether they produce the correct answer. You compare how runtime and resource requirements grow with input size, study major algorithmic strategies, and justify why an approach is efficient or inefficient. This turns data-structure knowledge into a stronger ability to evaluate competing solutions before or alongside implementation.",
 
     why:
 
@@ -650,6 +650,121 @@ const COURSE_CATALOG = {
 
   },
 
+};
+
+
+const COURSE_CAREER_INTELLIGENCE = {
+  software: {
+    CS112: {
+      work: "Programming fundamentals appear everywhere in software work: implementing features, reading existing code, debugging defects, writing scripts, and understanding application logic.",
+      relevance: "Software engineering begins with the ability to translate requirements into working logic. These fundamentals become the base for object-oriented design, data structures, frameworks, testing, and larger production codebases.",
+      launch: "Treat this as the point where problem solving becomes executable. Strong control flow, functions, decomposition, and debugging make every later software course and project easier to reason about.",
+    },
+    CS211: {
+      work: "Production applications are split into classes, services, modules, and components that collaborate. Object-oriented ideas show up when developers model domain objects, define interfaces, reuse behavior, and refactor large codebases.",
+      relevance: "Software engineers rarely maintain one giant block of code. Abstraction and separation of responsibilities help teams change one part of a system without breaking everything around it.",
+      launch: "Use OOP as a design tool, not just syntax. Practice explaining why a class or interface exists and what responsibility it owns.",
+    },
+    CS310: {
+      work: "Data structures appear behind application features such as search, caching, scheduling, indexing, navigation, dependency graphs, and fast lookup. Engineers choose structures based on the operations the software performs most often.",
+      relevance: "A software engineer needs to recognize when a design will become slow or unnecessarily complex as data grows. This course gives you the vocabulary to compare implementation choices rather than choosing them by habit.",
+      launch: "Connect each structure to a real use case and its tradeoffs. The goal is to be able to say why a hash table, tree, queue, graph, or other structure fits a particular problem.",
+    },
+    CS367: {
+      work: "Low-level behavior surfaces when debugging crashes, memory problems, performance issues, native libraries, system calls, or software that interacts closely with an operating system.",
+      relevance: "Even when you write high-level application code, understanding memory and execution helps you debug difficult failures and understand what runtimes, compilers, and operating systems are doing beneath your program.",
+      launch: "This course gives software engineers a systems mental model. Carry forward the connection between source code, memory, execution, and the OS instead of treating those layers as a black box.",
+    },
+    CS321: {
+      work: "This resembles everyday product development: teams interpret requirements, plan work, use Git, review changes, test features, document decisions, and iterate as requirements evolve.",
+      relevance: "This is one of the clearest bridges from programming coursework to professional software engineering because the job is as much about building maintainable software with other people as it is about writing code.",
+      launch: "Treat the team process as part of the technical skill. Requirements, version control, architecture, testing, reviews, and iterative delivery are all part of shipping reliable software.",
+    },
+    SWE437: {
+      work: "Testing appears in unit and integration test suites, pull requests, CI pipelines, regression checks, bug fixes, and release processes. Maintenance work also dominates much of a real product's lifetime.",
+      relevance: "Software engineers are responsible for changing systems without repeatedly breaking existing behavior. Testing provides fast feedback and gives teams confidence to refactor and release more safely.",
+      launch: "Connect testing directly to CI/CD and release confidence. A useful portfolio project should show not only that the app runs, but that important behavior can be verified repeatedly.",
+    },
+    CS475: {
+      work: "Backend services, microservices, job workers, databases, messaging systems, and cloud applications often perform work concurrently or communicate across machines.",
+      relevance: "Modern software frequently extends beyond one process on one computer. Understanding synchronization and distributed failure modes helps engineers design services that remain correct when many things happen at once.",
+      launch: "Think beyond a single program. Connect concurrency and distributed systems to service boundaries, coordination, scalability, reliability, and failure handling.",
+    },
+    CS483: {
+      work: "Engineers use algorithmic reasoning when comparing implementations, reviewing performance-sensitive code, optimizing expensive operations, and explaining technical tradeoffs. Algorithms and data structures are also common in software-engineering interviews.",
+      relevance: "Correct code can still become impractical when input grows. Algorithm analysis helps software engineers predict scaling behavior and defend why one solution is a better engineering choice than another.",
+      launch: "Connect CS 310's structures to the question 'how well does this solution scale?' Practice comparing alternatives and explaining their time and space costs rather than memorizing one implementation.",
+    },
+  },
+  cloud: {
+    CS112: {
+      work: "Cloud engineers still automate work with code: deployment scripts, serverless functions, infrastructure utilities, API integrations, and small tools that remove repetitive manual tasks.",
+      relevance: "Cloud platforms provide consoles, but automation is what makes infrastructure repeatable. Programming fundamentals let you move from clicking through tasks manually to expressing operational logic in scripts and tools.",
+      launch: "You do not need to become an application specialist to benefit from programming. Focus on functions, control flow, data handling, APIs, and debugging—the pieces most useful for automation.",
+    },
+    CS211: {
+      work: "Object-oriented structure appears in SDKs, automation tools, internal platforms, and infrastructure codebases. Cloud engineers also need to read application code well enough to understand what they are deploying and supporting.",
+      relevance: "Cloud and DevOps work sits close to software teams. Understanding how applications are organized makes it easier to automate deployments, diagnose configuration problems, and communicate with developers.",
+      launch: "Use this course to become comfortable navigating structured codebases. The career payoff is being able to understand the software your infrastructure is expected to run.",
+    },
+    CS310: {
+      work: "Queues, maps, trees, graphs, and caching ideas appear inside schedulers, dependency systems, routing logic, orchestration tools, monitoring platforms, and distributed services.",
+      relevance: "Cloud engineers do not implement every data structure from scratch, but understanding them helps explain why infrastructure and platform tools behave the way they do and why certain operations scale differently.",
+      launch: "Keep the conceptual tradeoffs. Recognizing queues, graphs, caching, and lookup structures makes unfamiliar cloud systems easier to reason about.",
+    },
+    CS367: {
+      work: "Systems knowledge appears when working with Linux servers, processes, memory usage, binaries, system calls, containers, and difficult application failures on virtual machines.",
+      relevance: "Cloud resources are abstractions over real computing systems. Understanding memory and execution makes EC2 instances, containers, logs, and resource problems less mysterious.",
+      launch: "This is a bridge from code to infrastructure. Carry forward the mental model of what a program needs from the machine underneath it.",
+    },
+    CS455: {
+      work: "Networking appears constantly in VPCs, subnets, IP addressing, routing tables, DNS, load balancers, firewalls/security groups, ports, HTTP services, VPNs, and connectivity troubleshooting.",
+      relevance: "A large share of cloud failures look like 'service A cannot reach service B.' Networking knowledge lets you trace the path instead of randomly changing cloud settings.",
+      launch: "Translate protocol concepts into traffic-flow questions: source, destination, address, port, route, name resolution, and filtering. That becomes a practical cloud troubleshooting framework.",
+    },
+    CS471: {
+      work: "Cloud applications ultimately run on operating systems, usually Linux. When you deploy to an EC2 instance, inspect a process consuming memory, manage files and permissions, diagnose a stopped service, or work with containers, you are interacting with OS concepts.",
+      relevance: "Cloud abstracts physical hardware, but it does not eliminate operating systems. Understanding processes, memory, files, concurrency, and resource management lets you reason about what is happening inside VMs and containers instead of treating the cloud as a collection of buttons.",
+      launch: "Processes, threads, memory, synchronization, file systems, and resource allocation connect directly to Linux, EC2/VMs, Docker, Kubernetes, monitoring, and production troubleshooting.",
+    },
+    CS475: {
+      work: "Distributed-system ideas appear in microservices, container clusters, replicated services, queues, databases, autoscaling systems, and applications spread across availability zones or regions.",
+      relevance: "Cloud architecture is inherently distributed. Machines and networks can fail independently, so engineers need to think about coordination, retries, state, scalability, and what happens when only part of a system is healthy.",
+      launch: "This course helps you move from administering one server to reasoning about a service made of many components. Connect the theory to microservices, orchestration, resilience, and scaling.",
+    },
+  },
+  cyber: {
+    CS112: {
+      work: "Security work often requires reading code, writing small analysis or automation scripts, reproducing bugs, parsing data, and understanding how program logic can be abused.",
+      relevance: "You cannot reason deeply about software vulnerabilities without understanding the logic that software executes. Programming fundamentals let you inspect behavior rather than treating applications as opaque boxes.",
+      launch: "Focus on control flow, input handling, functions, and debugging. Security frequently begins with asking what input reaches which code and what assumptions the programmer made.",
+    },
+    CS211: {
+      work: "Application security reviews involve navigating classes, APIs, components, and trust boundaries in large codebases. Object-oriented structure also influences where validation and security controls are implemented.",
+      relevance: "Security engineers need to understand how application components interact before they can identify unsafe assumptions or determine where a control should live.",
+      launch: "Use abstraction and interfaces to think about boundaries: what a component exposes, what it trusts, and what another component is allowed to do.",
+    },
+    CS310: {
+      work: "Security tooling and systems use structures such as graphs, queues, maps, trees, and indexes for dependency analysis, scanning, event processing, identity relationships, and fast lookup.",
+      relevance: "Efficient structures matter when security tools process large logs, dependency graphs, network relationships, or collections of indicators. Algorithms also sharpen the problem-solving needed to reason about attacker and defender workflows.",
+      launch: "Keep the ability to recognize structure and complexity. It helps you understand both how security tools organize information and how expensive an analysis may become at scale.",
+    },
+    CS367: {
+      work: "Memory layout and low-level execution matter in vulnerability classes such as memory corruption, unsafe pointer use, and crashes. Systems knowledge also helps when analyzing binaries, processes, and host behavior.",
+      relevance: "Many serious vulnerabilities make sense only after you understand how programs use memory and interact with the machine. This course gives you the foundation for understanding why low-level implementation mistakes can become security problems.",
+      launch: "Connect C, memory, pointers, and execution to attack surface. The goal is to understand what the program is really doing when an abstraction fails.",
+    },
+    CS468: {
+      work: "The material maps directly to secure coding, vulnerability analysis, cryptographic protections, authentication, threat reduction, and reviewing how software can fail under malicious input or misuse.",
+      relevance: "This is the most explicitly security-focused course in the V1 path. It teaches you to think about both the mechanism protecting a system and the assumptions an attacker may try to violate.",
+      launch: "Treat security as a design property rather than a final checklist. Practice connecting each weakness to its root cause, realistic impact, and a mitigation that reduces the attack surface.",
+    },
+    CS471: {
+      work: "Security teams investigate processes, permissions, memory behavior, files, services, isolation, and resource access on endpoints and servers. OS concepts also underpin containers and many host-security controls.",
+      relevance: "The operating system is a major security boundary. Understanding how it isolates processes and manages resources helps explain privilege, persistence, process behavior, and what host-based defenses are trying to protect.",
+      launch: "Connect processes, memory, files, permissions, and isolation to endpoint security, Linux hardening, incident investigation, containers, and privilege boundaries.",
+    },
+  },
 };
 
 
@@ -880,6 +995,11 @@ function createExplorationContext(careerId, courseId) {
 
     : null;
 
+  const careerCourseIntelligence =
+    careerId && validCourseId
+      ? COURSE_CAREER_INTELLIGENCE[careerId]?.[validCourseId] ?? null
+      : null;
+
 
 
   return {
@@ -904,9 +1024,13 @@ function createExplorationContext(careerId, courseId) {
 
           overview: course.summary,
 
-          careerRelevance: course.why,
+          workplaceConnection: careerCourseIntelligence?.work ?? course.why,
 
-          launchpadInsight: course.launch,
+          careerRelevance:
+            careerCourseIntelligence?.relevance ?? course.why,
+
+          launchpadInsight:
+            careerCourseIntelligence?.launch ?? course.launch,
 
           skills: course.skills,
 
@@ -1648,7 +1772,7 @@ function CourseInspector({
         number="02"
         title="Where does this show up at work?"
       >
-        <p>{intelligence.careerRelevance}</p>
+        <p>{intelligence.workplaceConnection}</p>
       </ContentSection>
 
       <ContentSection
@@ -1660,7 +1784,7 @@ function CourseInspector({
             <p className="text-[12px] font-semibold uppercase tracking-[0.06em] text-slate-300">
               {career.name}
             </p>
-            <p className="mt-2">{career.description}</p>
+            <p className="mt-2">{intelligence.careerRelevance}</p>
           </div>
         )}
 
@@ -1956,11 +2080,11 @@ function CourseNode({ data }) {
         </span>
 
         <div className="min-w-0 flex-1">
-          <div className="text-[24px] font-semibold leading-[1.25] tracking-[0.02em]">
+          <div className="text-[21px] font-semibold leading-7 tracking-[0.02em]">
             {course.code}
           </div>
 
-          <div className="mt-1 text-[18px] leading-[1.35] text-slate-300">
+          <div className="mt-1 text-[14px] leading-[1.5] text-slate-300">
             {course.title}
           </div>
 
@@ -2175,78 +2299,6 @@ function animationDuration() {
     : 450;
 }
 
-const FIT_OPTIONS = {
-  padding: 0.12,
-  minZoom: 0.08,
-  maxZoom: 2.4,
-};
-
-function fitGalaxy(flow, container, courseIds) {
-  if (!container || courseIds.length === 0) return;
-
-  const viewportWidth = container.clientWidth;
-  const viewportHeight = container.clientHeight;
-
-  if (viewportWidth <= 0 || viewportHeight <= 0) return;
-
-  const activeIds = new Set(courseIds);
-  const visibleNodes = flow
-    .getNodes()
-    .filter((node) => activeIds.has(node.id) && !node.hidden);
-
-  if (
-    visibleNodes.length !== activeIds.size ||
-    visibleNodes.some(
-      (node) =>
-        !(node.measured?.width > 0) ||
-        !(node.measured?.height > 0),
-    )
-  ) {
-    return;
-  }
-
-  let left = Infinity;
-  let top = Infinity;
-  let right = -Infinity;
-  let bottom = -Infinity;
-
-  for (const node of visibleNodes) {
-    const width = node.measured.width;
-    const height = node.measured.height;
-    const [originX, originY] = node.origin ?? [0, 0];
-
-    const x = node.position.x - width * originX;
-    const y = node.position.y - height * originY;
-
-    left = Math.min(left, x);
-    top = Math.min(top, y);
-    right = Math.max(right, x + width);
-    bottom = Math.max(bottom, y + height);
-  }
-
-  const boundsWidth = Math.max(1, right - left);
-  const boundsHeight = Math.max(1, bottom - top);
-  const occupancy = 1 - FIT_OPTIONS.padding * 2;
-
-  const targetZoom = Math.min(
-    (viewportWidth * occupancy) / boundsWidth,
-    (viewportHeight * occupancy) / boundsHeight,
-  );
-
-  const zoom = Math.min(
-    FIT_OPTIONS.maxZoom,
-    Math.max(FIT_OPTIONS.minZoom, targetZoom),
-  );
-
-  return flow.fitView({
-    nodes: visibleNodes.map((node) => ({ id: node.id })),
-    padding: FIT_OPTIONS.padding,
-    minZoom: zoom,
-    maxZoom: zoom,
-    duration: animationDuration(),
-  });
-}
-
 function GalaxyFitController({
   containerRef,
   selectedCareer,
@@ -2286,13 +2338,12 @@ function GalaxyFitController({
             return;
           }
 
-          void fitGalaxy(
-            flow,
-            container,
-            selectedCareer
-              ? CAREERS[selectedCareer].courses
-              : V1_COURSE_IDS,
-          );
+          void flow.fitView({
+            padding: 0.12,
+            minZoom: 0.08,
+            maxZoom: 1.2,
+            duration: animationDuration(),
+          });
         });
       }, 150);
     };
@@ -2334,7 +2385,7 @@ function GalaxyMap({
   completedCourses,
 }) {
   const canvasRef = useRef(null);
-  const flow = useReactFlow();
+  const { fitView, getNodes, setCenter } = useReactFlow();
 
   const [positions, setPositions] = useState(GALAXY_COORDINATES);
 
@@ -2449,14 +2500,63 @@ function GalaxyMap({
   const fitEntireGalaxy = useCallback(() => {
     if (!hasCourses) return;
 
-    void fitGalaxy(flow, canvasRef.current, Array.from(activeIds));
-  }, [activeIds, flow, hasCourses]);
+    void fitView({
+      padding: 0.12,
+      minZoom: 0.08,
+      maxZoom: 1.2,
+      duration: animationDuration(),
+    });
+  }, [fitView, hasCourses]);
 
+  /*
+   * Recenter preserves a readable scale when the full overview
+   * would make labels too small. Fit All remains available for
+   * seeing the complete constellation at once.
+   */
   const recenterGalaxy = useCallback(() => {
-    if (!hasCourses) return;
+    const visibleNodes = getNodes().filter((node) =>
+      activeIds.has(node.id),
+    );
 
-    void fitGalaxy(flow, canvasRef.current, Array.from(activeIds));
-  }, [activeIds, flow, hasCourses]);
+    if (visibleNodes.length === 0) return;
+
+    const selectedNode = visibleNodes.find(
+      (node) => node.id === selectedCourse,
+    );
+
+    if (selectedNode) {
+      const width = selectedNode.measured?.width ?? 232;
+      const height = selectedNode.measured?.height ?? 160;
+
+      void setCenter(
+        selectedNode.position.x + width / 2,
+        selectedNode.position.y + height / 2,
+        {
+          zoom: 1,
+          duration: animationDuration(),
+        },
+      );
+      return;
+    }
+
+    const minX = Math.min(...visibleNodes.map((node) => node.position.x));
+    const minY = Math.min(...visibleNodes.map((node) => node.position.y));
+    const maxX = Math.max(
+      ...visibleNodes.map(
+        (node) => node.position.x + (node.measured?.width ?? 232),
+      ),
+    );
+    const maxY = Math.max(
+      ...visibleNodes.map(
+        (node) => node.position.y + (node.measured?.height ?? 160),
+      ),
+    );
+
+    void setCenter((minX + maxX) / 2, (minY + maxY) / 2, {
+      zoom: 0.85,
+      duration: animationDuration(),
+    });
+  }, [activeIds, getNodes, selectedCourse, setCenter]);
 
   return (
     <section
@@ -2542,7 +2642,11 @@ function GalaxyMap({
           maxZoom={2.5}
           deleteKeyCode={null}
           fitView
-          fitViewOptions={FIT_OPTIONS}
+          fitViewOptions={{
+            padding: 0.12,
+            minZoom: 0.08,
+            maxZoom: 1.2,
+          }}
           style={{ background: "transparent" }}
         >
           <Background gap={42} size={0.65} color="#253044" />
@@ -2917,3 +3021,4 @@ function App() {
 }
 
 export default App;
+
