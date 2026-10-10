@@ -1,3 +1,4 @@
+import AiLearningStrategy, { CourseLearningTip } from "./features/ai-learning/AiLearningStrategy.jsx";
 import {
 
   useCallback,
@@ -1707,6 +1708,7 @@ function CourseInspector({
   completed,
   onToggleCompleted,
   onBackToCareer,
+  onOpenStrategy,
 }) {
   const course = context.selectedCourse;
   const career = context.activeCareer;
@@ -1825,6 +1827,8 @@ function CourseInspector({
         )}
       </ContentSection>
 
+      <CourseLearningTip course={course} onOpenStrategy={onOpenStrategy} />
+
       <EvidencePanel evidence={intelligence.evidence} />
 
       {progressEnabled && (
@@ -1901,6 +1905,7 @@ function RegistryList({
 }
 
 function Sidebar({
+  onOpenStrategy,
   context,
   viewMode,
   onChangeView,
@@ -1964,6 +1969,7 @@ function Sidebar({
         >
           {context.selectedCourse ? (
             <CourseInspector
+              onOpenStrategy={onOpenStrategy}
               context={context}
               progressEnabled={progressEnabled}
               completed={completedCourses.has(context.selectedCourseId)}
@@ -2842,7 +2848,7 @@ function StatusBar({
    APPLICATION STATE
    ============================================================ */
 
-function AppContent() {
+function AppContent({ active, onOpenStrategy }) {
   const [selectedCareer, setSelectedCareer] = useState(null);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [viewMode, setViewMode] = useState("split");
@@ -2907,6 +2913,7 @@ function AppContent() {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (
+        !active ||
         event.key !== "Escape" ||
         event.defaultPrevented ||
         document.querySelector("dialog[open]")
@@ -2922,10 +2929,10 @@ function AppContent() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [active]);
 
   return (
-    <div className="flex h-dvh w-full min-w-[320px] flex-col overflow-hidden bg-[#03060c] font-mono text-slate-100">
+    <div className="flex h-full w-full min-w-[320px] flex-col overflow-hidden bg-[#03060c] font-mono text-slate-100">
       <style>{`
         @keyframes hyperlane-nebula {
           from {
@@ -2963,6 +2970,7 @@ function AppContent() {
           }
         >
           <Sidebar
+            onOpenStrategy={onOpenStrategy}
             context={context}
             viewMode={viewMode}
             onChangeView={changeView}
@@ -3013,12 +3021,39 @@ function AppContent() {
 }
 
 function App() {
+  const [activePage, setActivePage] = useState("map");
+  const strategyRef = useRef(null);
+  const mapButtonRef = useRef(null);
+  const openStrategy = useCallback(() => setActivePage("strategy"), []);
+
+  useEffect(() => {
+    if (activePage === "strategy") strategyRef.current?.focus();
+  }, [activePage]);
+
   return (
     <ReactFlowProvider>
-      <AppContent />
+      <div className="ai-strategy-shell">
+        <nav className="ai-strategy-navigation" aria-label="Hyperlane navigation">
+          <button ref={mapButtonRef} type="button" aria-current={activePage === "map" ? "page" : undefined} aria-controls="hyperlane-map-page" onClick={() => setActivePage("map")}>Career Map</button>
+          <button type="button" aria-current={activePage === "strategy" ? "page" : undefined} aria-controls="hyperlane-strategy-page" onClick={openStrategy}>AI-Era Learning Strategy</button>
+        </nav>
+        <div className="ai-strategy-workspace">
+          <div id="hyperlane-map-page" className="ai-strategy-map-surface" data-active={activePage === "map"} inert={activePage !== "map"} aria-hidden={activePage !== "map"}>
+            <AppContent active={activePage === "map"} onOpenStrategy={openStrategy} />
+          </div>
+          <main id="hyperlane-strategy-page" ref={strategyRef} tabIndex={-1} className="ai-strategy-reading-surface" hidden={activePage !== "strategy"} aria-label="AI-Era Learning Strategy" onKeyDown={event => {
+            if (event.key === "Escape") {
+              event.preventDefault();
+              setActivePage("map");
+              mapButtonRef.current?.focus();
+            }
+          }}>
+            <AiLearningStrategy careers={CAREERS} />
+          </main>
+        </div>
+      </div>
     </ReactFlowProvider>
   );
 }
 
 export default App;
-
