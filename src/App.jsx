@@ -17,7 +17,6 @@ import {
 
 import {
 
-  Background,
 
   Controls,
 
@@ -40,6 +39,7 @@ import {
 
 
 import "@xyflow/react/dist/style.css";
+import "./hyperlane-theme.css";
 
 
 
@@ -1195,7 +1195,7 @@ function Eyebrow({ children, className = "" }) {
 
     <div
 
-      className={`text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-400 ${className}`}
+      className={`hl-eyebrow text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-400 ${className}`}
 
     >
 
@@ -1247,7 +1247,7 @@ function LaunchpadPanel({ children }) {
 
   return (
 
-    <section className="border border-[#cbbb71]/25 bg-[#cbbb71]/[0.035] p-5">
+    <section className="hl-launchpad border border-[#cbbb71]/25 bg-[#cbbb71]/[0.035] p-5">
 
       <h3 className="text-[12px] font-semibold tracking-[0.12em] text-[#cbbb71]">
 
@@ -1283,7 +1283,7 @@ function ContentSection({ number, title, children }) {
 
   return (
 
-    <section className="border-t border-slate-800 pt-6">
+    <section className="hl-content-section border-t border-slate-800 pt-6">
 
       <div className="flex items-baseline gap-3">
 
@@ -1321,14 +1321,14 @@ function ContentSection({ number, title, children }) {
    CAREER CONTROLS
    ============================================================ */
 
-function TrackingHeader() {
+function TrackingHeader({ children }) {
   return (
-    <header className="relative z-30 flex min-h-[72px] shrink-0 items-center justify-between gap-4 border-b border-slate-800 bg-[#060b12] px-4 sm:px-6">
+    <header className="hl-header relative z-30 flex min-h-[72px] shrink-0 items-center justify-between gap-4 border-b border-slate-800 bg-[#060b12] px-4 sm:px-6">
       <div className="flex min-w-0 items-center gap-3">
         <OrbitalMark />
 
         <div className="min-w-0">
-          <div className="whitespace-nowrap text-[18px] font-bold tracking-[0.1em] text-slate-100">
+          <div className="hl-brand whitespace-nowrap text-[18px] font-bold tracking-[0.1em] text-slate-100">
             HYPERLANE <span className="text-[#cbbb71]">/</span>
           </div>
 
@@ -1338,7 +1338,9 @@ function TrackingHeader() {
         </div>
       </div>
 
-      <div className="hidden items-center gap-4 border-l border-emerald-400/30 pl-6 lg:flex">
+      {children}
+
+      <div className="hl-university hidden items-center gap-4 border-l border-emerald-400/30 pl-6 lg:flex">
         <span className="text-3xl font-black text-[#cbbb71]">M</span>
 
         <div>
@@ -1352,7 +1354,7 @@ function TrackingHeader() {
         </div>
       </div>
 
-      <div className="hidden shrink-0 text-right sm:block">
+      <div className="hl-edition hidden shrink-0 text-right sm:block">
         <div className="text-[10px] tracking-[0.1em] text-slate-400">
           EXPLORER EDITION
         </div>
@@ -1369,7 +1371,7 @@ function CareerSelector({ selectedCareer, onSelect }) {
   return (
     <nav
       aria-label="Career destinations"
-      className="flex min-w-0 flex-wrap gap-2"
+      className="hl-career-filters flex min-w-0 flex-wrap gap-2"
     >
       <button
         type="button"
@@ -1437,7 +1439,7 @@ function TrajectoryHeader({
   viewMode,
 }) {
   return (
-    <section className="shrink-0 border-b border-slate-800 bg-[#060b12]/90 px-4 py-3 sm:px-6">
+    <section className="hl-trajectory shrink-0 border-b border-slate-800 bg-[#060b12]/90 px-4 py-3 sm:px-6">
       {viewMode !== "galaxy" && (
         <div className="mb-4 flex items-start justify-between gap-5">
           <div>
@@ -1717,7 +1719,7 @@ function CourseInspector({
   if (!course || !intelligence) return null;
 
   return (
-    <article className="space-y-6">
+    <article className="hl-course-inspector space-y-6">
       <div>
         {career && (
           <button
@@ -1734,7 +1736,7 @@ function CourseInspector({
           <TierBadge tier={course.tier} />
         </div>
 
-        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">
+        <h2 className="hl-course-heading mt-4 text-3xl font-semibold tracking-tight text-white">
           {course.code}
         </h2>
 
@@ -1863,7 +1865,7 @@ function RegistryList({
   if (ids.length === 0) return null;
 
   return (
-    <section className="mt-8 border-t border-slate-800 pt-6">
+    <section className="hl-course-registry mt-8 border-t border-slate-800 pt-6">
       <Eyebrow>Complete registry / {ids.length} courses</Eyebrow>
 
       <div className="mt-4 space-y-1">
@@ -2022,108 +2024,37 @@ function Sidebar({
    ============================================================ */
 
 function CourseNode({ data }) {
-  const {
-    course,
-    accent,
-    focused,
-    launchpad,
-    completed,
-    progressEnabled,
-  } = data;
-
+  const { course, focused, launchpad, completed, progressEnabled } = data;
+  const starColor = course.tier === "SUPPLEMENTARY" ? "#D8B875" : "#EAF3FF";
+  // Both hyperlane endpoints align with the luminous point at (24, 26).
   const handleStyle = {
-    width: 5,
-    height: 5,
-    top: 29,
-    left: 26,
-    right: "auto",
-    background: accent,
-    border: 0,
-    opacity: 0,
-    pointerEvents: "none",
+    width: 1, height: 1, top: 26, left: 24, right: "auto",
+    transform: "translate(-50%, -50%)", background: "transparent",
+    border: 0, opacity: 0, pointerEvents: "none",
   };
-
   return (
-    <div
-      className="relative w-[232px] px-3 py-3"
-      style={{
-        color: accent,
-        border: `1px solid ${focused ? "#ffffff" : "transparent"}`,
-        background: focused ? "rgba(8, 15, 26, 0.8)" : "transparent",
-      }}
-      title={`${course.code}: ${course.title}`}
-    >
-      <Handle
-        type="target"
-        position={Position.Left}
-        isConnectable={false}
-        style={handleStyle}
-      />
-
-      <div className="flex items-start gap-3">
-        <span
-          aria-hidden="true"
-          className="relative mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
-          style={{
-            border: `1px solid ${accent}88`,
-            boxShadow: `0 0 18px ${accent}20`,
-          }}
-        >
-          <span
-            className="h-2.5 w-2.5 rounded-full"
-            style={{
-              backgroundColor: accent,
-              boxShadow: `0 0 12px ${accent}aa`,
-            }}
-          />
-
-          {launchpad && (
-            <span
-              className="absolute -inset-1 rounded-full"
-              style={{ border: `1px solid ${accent}44` }}
-            />
-          )}
-        </span>
-
-        <div className="min-w-0 flex-1">
-          <div className="text-[21px] font-semibold leading-7 tracking-[0.02em]">
-            {course.code}
-          </div>
-
-          <div className="mt-1 text-[14px] leading-[1.5] text-slate-300">
-            {course.title}
-          </div>
-
-          <div className="mt-2 text-[10px] tracking-[0.06em] text-slate-400">
-            {course.tier}
-          </div>
-
-          {launchpad && (
-            <span
-              className="mt-1 inline-block border-b border-dotted text-[10px] tracking-[0.03em]"
-              style={{ borderColor: `${accent}88` }}
-              title={`${LAUNCHPAD_DEFINITION}\n\n${course.launch}`}
-            >
-              LAUNCHPAD INSIGHT
-            </span>
-          )}
-
-          {progressEnabled && completed && (
-            <div className="mt-1 text-[10px] tracking-[0.06em] text-slate-200">
-              COMPLETED
-            </div>
-          )}
-        </div>
+    <div className="hl-course-star" data-focused={focused} data-launchpad={launchpad}
+      style={{ "--star-color": starColor }} title={`${course.code}: ${course.title}`}>
+      <Handle type="target" position={Position.Left} isConnectable={false} style={handleStyle} />
+      <span className="hl-star-point" aria-hidden="true"><span /></span>
+      <div className="hl-star-label">
+        <div className="hl-star-code">{course.code}</div>
+        <div className="hl-star-title">{course.title}</div>
+        <div className="hl-star-tier">{course.tier}</div>
+        {launchpad && <span className="hl-star-launchpad" title={`${LAUNCHPAD_DEFINITION}\n\n${course.launch}`}>LAUNCHPAD INSIGHT</span>}
+        {progressEnabled && completed && <div className="hl-star-completed"><svg aria-hidden="true" width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="m3 8 3 3 7-7" stroke="currentColor" strokeWidth="1.5" /></svg>COMPLETED</div>}
       </div>
-
-      <Handle
-        type="source"
-        position={Position.Right}
-        isConnectable={false}
-        style={handleStyle}
-      />
+      <Handle type="source" position={Position.Right} isConnectable={false} style={handleStyle} />
     </div>
   );
+}
+
+function MiniMapStar({ id, x, y, color, strokeColor, selected, className, onClick }) {
+  return <circle className={`react-flow__minimap-node ${className || ""}`}
+    cx={x + 24} cy={y + 26} r={selected ? 19 : 13}
+    fill={color || "#BFD6EB"} stroke={strokeColor || "none"}
+    strokeWidth={selected ? 4 : 0} shapeRendering="geometricPrecision"
+    onClick={onClick ? (event) => onClick(event, id) : undefined} />;
 }
 
 const NODE_TYPES = {
@@ -2134,48 +2065,8 @@ const NODE_TYPES = {
    GALAXY BACKGROUND
    ============================================================ */
 
-const STAR_FIELD = Array.from({ length: 90 }, (_, index) => ({
-  id: index,
-  left: `${(index * 37.31 + 7) % 100}%`,
-  top: `${(index * 61.73 + 11) % 100}%`,
-  size: index % 11 === 0 ? 2 : 1,
-  opacity: 0.12 + (index % 5) * 0.065,
-}));
-
 function GalaxyBackdrop() {
-  return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
-    >
-      <div
-        className="absolute -inset-[12%] motion-safe:animate-[hyperlane-nebula_40s_ease-in-out_infinite_alternate]"
-        style={{
-          backgroundImage: [
-            "radial-gradient(ellipse at 18% 28%, rgba(25,88,86,0.15), transparent 38%)",
-            "radial-gradient(ellipse at 77% 30%, rgba(39,57,109,0.18), transparent 40%)",
-            "radial-gradient(ellipse at 63% 82%, rgba(69,43,93,0.10), transparent 35%)",
-          ].join(","),
-        }}
-      />
-
-      <div className="absolute -inset-[3%] motion-safe:animate-[hyperlane-stars_60s_linear_infinite_alternate]">
-        {STAR_FIELD.map((star) => (
-          <span
-            key={star.id}
-            className="absolute rounded-full bg-slate-300"
-            style={{
-              left: star.left,
-              top: star.top,
-              width: star.size,
-              height: star.size,
-              opacity: star.opacity,
-            }}
-          />
-        ))}
-      </div>
-    </div>
-  );
+  return <div aria-hidden="true" className="hl-galaxy-backdrop" />;
 }
 
 /* ============================================================
@@ -2345,7 +2236,7 @@ function GalaxyFitController({
           }
 
           void flow.fitView({
-            padding: 0.12,
+            padding: 0.16,
             minZoom: 0.08,
             maxZoom: 1.2,
             duration: animationDuration(),
@@ -2394,6 +2285,7 @@ function GalaxyMap({
   const { fitView, getNodes, setCenter } = useReactFlow();
 
   const [positions, setPositions] = useState(GALAXY_COORDINATES);
+  const [nodeDimensions, setNodeDimensions] = useState({});
 
   const expanded = viewMode === "galaxy";
   const career = selectedCareer ? CAREERS[selectedCareer] : null;
@@ -2429,6 +2321,7 @@ function GalaxyMap({
         id,
         type: "course",
         position: positions[id],
+        measured: nodeDimensions[id],
         selected: selectedCourse === id,
         ariaLabel: `${COURSE_CATALOG[id].code}, ${COURSE_CATALOG[id].title}`,
         data: {
@@ -2443,6 +2336,7 @@ function GalaxyMap({
     [
       activeIds,
       positions,
+      nodeDimensions,
       selectedCourse,
       accent,
       launchpadIds,
@@ -2472,20 +2366,36 @@ function GalaxyMap({
           selectable: false,
           focusable: false,
           style: {
-            stroke: selectedCareer ? accent : "#64748b",
-            strokeWidth: selectedCareer ? 1.8 : 1.2,
-            strokeOpacity: selectedCareer ? 0.85 : 0.5,
+            stroke: supplementary ? "#B8A786" : "#9EBCD8",
+            strokeWidth: 1,
+            strokeOpacity: selectedCareer ? 0.56 : 0.4,
             strokeDasharray: supplementary ? "5 6" : undefined,
-            filter: selectedCareer
-              ? `drop-shadow(0 0 3px ${accent}55)`
-              : undefined,
+            
           },
         };
       }),
-    [activeIds, selectedCareer, accent],
+    [activeIds, selectedCareer],
   );
 
   const onNodesChange = useCallback((changes) => {
+    // Retain measured star-label bounds in this controlled graph. This keeps
+    // dragging, fit calculations, and the minimap consistent after rerenders.
+    const measuredChanges = changes.filter(
+      (change) => change.type === "dimensions" && change.dimensions,
+    );
+    if (measuredChanges.length) {
+      setNodeDimensions((current) => {
+        let updated = current;
+        for (const change of measuredChanges) {
+          const previous = current[change.id];
+          if (previous?.width !== change.dimensions.width || previous?.height !== change.dimensions.height) {
+            if (updated === current) updated = { ...current };
+            updated[change.id] = change.dimensions;
+          }
+        }
+        return updated;
+      });
+    }
     const positionChanges = changes.filter(
       (change) => change.type === "position" && change.position,
     );
@@ -2531,7 +2441,7 @@ function GalaxyMap({
     );
 
     if (selectedNode) {
-      const width = selectedNode.measured?.width ?? 232;
+      const width = selectedNode.measured?.width ?? 248;
       const height = selectedNode.measured?.height ?? 160;
 
       void setCenter(
@@ -2549,7 +2459,7 @@ function GalaxyMap({
     const minY = Math.min(...visibleNodes.map((node) => node.position.y));
     const maxX = Math.max(
       ...visibleNodes.map(
-        (node) => node.position.x + (node.measured?.width ?? 232),
+        (node) => node.position.x + (node.measured?.width ?? 248),
       ),
     );
     const maxY = Math.max(
@@ -2649,13 +2559,13 @@ function GalaxyMap({
           deleteKeyCode={null}
           fitView
           fitViewOptions={{
-            padding: 0.12,
+            padding: 0.16,
             minZoom: 0.08,
             maxZoom: 1.2,
           }}
           style={{ background: "transparent" }}
         >
-          <Background gap={42} size={0.65} color="#253044" />
+          
 
           <GalaxyFitController
             containerRef={canvasRef}
@@ -2673,10 +2583,11 @@ function GalaxyMap({
               />
 
               <MiniMap
+                nodeComponent={MiniMapStar}
                 position="bottom-right"
                 pannable
                 zoomable
-                nodeColor={() => accent}
+                nodeColor={(node) => COURSE_CATALOG[node.id]?.tier === "SUPPLEMENTARY" ? "#D8B875" : "#BFD6EB"}
                 nodeStrokeColor={(node) =>
                   node.id === selectedCourse ? "#ffffff" : accent
                 }
@@ -2794,7 +2705,7 @@ function StatusBar({
   ).length;
 
   return (
-    <footer className="relative z-30 flex shrink-0 flex-wrap items-center justify-between gap-x-5 gap-y-2 border-t border-slate-800 bg-[#060b12] px-4 py-2 text-[10px] leading-6 tracking-[0.02em] text-slate-400">
+    <footer className="hl-status-bar relative z-30 flex shrink-0 flex-wrap items-center justify-between gap-x-5 gap-y-2 border-t border-slate-800 bg-[#060b12] px-4 py-2 text-[10px] leading-6 tracking-[0.02em] text-slate-400">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
         <span className="inline-flex items-center gap-2">
           <span
@@ -2932,28 +2843,9 @@ function AppContent({ active, onOpenStrategy }) {
   }, [active]);
 
   return (
-    <div className="flex h-full w-full min-w-[320px] flex-col overflow-hidden bg-[#03060c] font-mono text-slate-100">
-      <style>{`
-        @keyframes hyperlane-nebula {
-          from {
-            transform: translate3d(-1%, -1%, 0) scale(1);
-          }
-          to {
-            transform: translate3d(2%, 1%, 0) scale(1.05);
-          }
-        }
+    <div className="hl-map-app flex h-full w-full min-w-[320px] flex-col overflow-hidden bg-[#03060c] font-mono text-slate-100">
 
-        @keyframes hyperlane-stars {
-          from {
-            transform: translate3d(0, 0, 0);
-          }
-          to {
-            transform: translate3d(1.5%, -1%, 0);
-          }
-        }
-      `}</style>
 
-      <TrackingHeader />
 
       <main
         className={
@@ -3033,10 +2925,12 @@ function App() {
   return (
     <ReactFlowProvider>
       <div className="ai-strategy-shell">
+        <TrackingHeader>
         <nav className="ai-strategy-navigation" aria-label="Hyperlane navigation">
           <button ref={mapButtonRef} type="button" aria-current={activePage === "map" ? "page" : undefined} aria-controls="hyperlane-map-page" onClick={() => setActivePage("map")}>Career Map</button>
           <button type="button" aria-current={activePage === "strategy" ? "page" : undefined} aria-controls="hyperlane-strategy-page" onClick={openStrategy}>AI-Era Learning Strategy</button>
         </nav>
+        </TrackingHeader>
         <div className="ai-strategy-workspace">
           <div id="hyperlane-map-page" className="ai-strategy-map-surface" data-active={activePage === "map"} inert={activePage !== "map"} aria-hidden={activePage !== "map"}>
             <AppContent active={activePage === "map"} onOpenStrategy={openStrategy} />
