@@ -189,7 +189,7 @@ resource "aws_instance" "hyperlane_ec2" {
   subnet_id              = aws_subnet.hyperlane_public_subnet.id
   vpc_security_group_ids = [aws_security_group.hyperlane_sg.id]
 
-  associate_public_ip_address = true
+  
 
   # Run our startup script when EC2 first launches
   user_data = file("${path.module}/userdata.sh")
@@ -238,6 +238,18 @@ resource "aws_iam_role_policy_attachment" "ssm" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
+# ------------------------------------------------------------
+# ECR READ ACCESS — Allow EC2 to download Docker images
+# ------------------------------------------------------------
+# Grants our EC2 server permission to authenticate with ECR
+# and download Hyperlane's Docker image.
+#
+# Read-only access: EC2 cannot upload or delete images.
+
+resource "aws_iam_role_policy_attachment" "ecr_readonly" {
+  role       = aws_iam_role.hyperlane_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
 
 # ------------------------------------------------------------
 # 13. INSTANCE PROFILE — Connect IAM role to EC2

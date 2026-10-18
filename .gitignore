@@ -40,3 +40,6 @@ crash.*.log
 .venv/
 __pycache__/
 *.pyc
+
+# ChromaDB
+rag/chroma_db/
