@@ -44,3 +44,6 @@ __pycache__/
 # ChromaDB
 rag/chroma_db/
 rag/chroma db/
+
+hyperlane-ai-review/
+hyperlane-v2.tar
