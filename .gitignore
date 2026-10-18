@@ -43,3 +43,4 @@ __pycache__/
 
 # ChromaDB
 rag/chroma_db/
+rag/chroma db/
