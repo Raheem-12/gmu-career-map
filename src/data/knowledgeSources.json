@@ -1,0 +1,18 @@
+{
+  "CS310": {
+    "sources": [
+      {
+        "id": "open-data-structures",
+        "title": "Open Data Structures",
+        "url": "https://opendatastructures.org/",
+        "license": "CC BY 2.5",
+        "topics": [
+          "linked-lists",
+          "trees",
+          "hash-tables"
+        ],
+        "status": "pending-review"
+      }
+    ]
+  }
+}

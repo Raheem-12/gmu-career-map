@@ -33,3 +33,10 @@ dist-ssr
 tfplan
 *.tfplan
 crash.*.log
+
+
+#Python
+# Python
+.venv/
+__pycache__/
+*.pyc

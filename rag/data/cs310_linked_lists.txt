@@ -1,0 +1,55 @@
+3.1 SLList: A Singly-Linked List Subsections 3 . 1 . 1 Queue Operations 3 . 1 . 2 Summary 3 . 1 SLList : A Singly-Linked List An SLList (singly-linked list) is a sequence of Node s.  Each node $ \mathtt{u}$ stores a data value $ \mathtt{u.x}$ and a reference $ \mathtt{u.next}$ to the next node in
+the sequence.  For the last node $ \mathtt{w}$ in the sequence, $ \ensuremath{\mathtt{w.next}} = \ensuremath{\mathtt{null}}$ class Node {
+        T x;
+        Node next;
+    } For efficiency, an SLList uses variables $ \mathtt{head}$ and $ \mathtt{tail}$ to keep
+track of the first and last node in the sequence, as well as an integer $ \mathtt{n}$ to keep track of the length of the sequence: Node head;
+    Node tail;
+    int n; A sequence of Stack and Queue operations on an SLList is
+illustrated in Figure 3.1 . Figure 3.1: A sequence of Queue ( $ \mathtt{add(x)}$ and $ \mathtt{remove()}$ ) and Stack ( $ \mathtt{push(x)}$ and $ \mathtt{pop()}$ ) operations on an SLList . An SLList can efficiently implement the Stack operations $ \mathtt{push()}$ and $ \mathtt{pop()}$ by adding and removing elements at the head of the sequence.
+The $ \mathtt{push()}$ operation simply creates a new node $ \mathtt{u}$ with data value $ \mathtt{x}$ ,
+sets $ \mathtt{u.next}$ to the old head of the list and makes $ \mathtt{u}$ the new head
+of the list. Finally, it increments $ \mathtt{n}$ since the size of the SLList has increased by one: T push(T x) {
+        Node u = new Node();
+        u.x = x;
+        u.next = head;
+        head = u;
+        if (n == 0)
+            tail = u;
+        n++;
+        return x;
+    } The $ \mathtt{pop()}$ operation, after checking that the SLList is not empty,
+removes the head by setting $ \ensuremath{\mathtt{head=head.next}}$ and decrementing $ \mathtt{n}$ .
+A special case occurs when the last element is being removed, in which case $ \mathtt{tail}$ is set to $ \mathtt{null}$ : T pop() {
+        if (n == 0)    return null;
+        T x = head.x;
+        head = head.next;
+        if (--n == 0) tail = null;
+        return x;
+    } Clearly, both the $ \mathtt{push(x)}$ and $ \mathtt{pop()}$ operations run in $ O(1)$ time. 3 . 1 . 1 Queue Operations An SLList can also implement the FIFO queue operations $ \mathtt{add(x)}$ and $ \mathtt{remove()}$ in constant time.  Removals are done from the head of the list,
+and are identical to the $ \mathtt{pop()}$ operation: T remove() {
+        if (n == 0)    return null;
+        T x = head.x;
+        head = head.next;
+        if (--n == 0) tail = null;
+        return x;
+    } Additions, on the other hand, are done at the tail of the list.  In most
+cases, this is done by setting $ \ensuremath{\mathtt{tail.next}}=\ensuremath{\mathtt{u}}$ , where $ \mathtt{u}$ is the newly
+created node that contains $ \mathtt{x}$ .  However, a special case occurs when $ \ensuremath{\mathtt{n}}=0$ , in which case $ \ensuremath{\mathtt{tail}}=\ensuremath{\mathtt{head}}=\ensuremath{\mathtt{null}}$ .  In this case, both $ \mathtt{tail}$ and $ \mathtt{head}$ are set to $ \mathtt{u}$ . boolean add(T x) {
+        Node u = new Node();
+        u.x = x;
+        if (n == 0) {
+            head = u;
+        } else {
+            tail.next = u;
+        }
+        tail = u;
+        n++;
+        return true;
+    } Clearly, both $ \mathtt{add(x)}$ and $ \mathtt{remove()}$ take constant time. 3 . 1 . 2 Summary The following theorem summarizes the performance of an SLList : Theorem 3 .. 1 An SLList implements the Stack and (FIFO) Queue interfaces.  
+  The $ \mathtt{push(x)}$ , $ \mathtt{pop()}$ , $ \mathtt{add(x)}$ and $ \mathtt{remove()}$ operations run
+  in $ O(1)$ time per operation. An SLList nearly implements the full set of Deque operations.
+The only missing operation is removing from the tail of an SLList .
+Removing from the tail of an SLList is difficult because it requires
+updating the value of $ \mathtt{tail}$ so that it points to the node $ \mathtt{w}$ that precedes $ \mathtt{tail}$ in the SLList ; this is the node $ \mathtt{w}$ such that $ \ensuremath{\mathtt{w.next}}=\ensuremath{\mathtt{tail}}$ .  Unfortunately, the only way to get to $ \mathtt{w}$ is by
+traversing the SLList starting at $ \mathtt{head}$ and taking $ \ensuremath{\mathtt{n}}-2$ steps. opendatastructures.org

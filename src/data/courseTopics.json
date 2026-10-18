@@ -1,0 +1,42 @@
+{
+  "CS310": {
+    "courseCode": "CS 310",
+    "topics": [
+      {
+        "id": "linked-lists",
+        "title": "Linked Lists",
+        "status": "pending-verification"
+      },
+      {
+        "id": "trees",
+        "title": "Trees",
+        "status": "pending-verification"
+      },
+      {
+        "id": "hash-tables",
+        "title": "Hash Tables",
+        "status": "pending-verification"
+      }
+    ]
+  },
+  "CS483": {
+    "courseCode": "CS 483",
+    "topics": [
+      {
+        "id": "algorithm-complexity",
+        "title": "Algorithm Complexity",
+        "status": "pending-verification"
+      },
+      {
+        "id": "graph-algorithms",
+        "title": "Graph Algorithms",
+        "status": "pending-verification"
+      },
+      {
+        "id": "recurrence-relations",
+        "title": "Recurrence Relations",
+        "status": "pending-verification"
+      }
+    ]
+  }
+}
