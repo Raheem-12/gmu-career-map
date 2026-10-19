@@ -12,6 +12,8 @@ The project also gave me an opportunity to gain hands-on experience with two are
 
 **Project status:** The Career Map is publicly deployed on AWS. Quasar AI, the RAG-based study assistant, currently runs locally and is not yet integrated into the live website.
 
+![Hyperlane interactive GMU CS Career Map](assets/hyperlane-career-map.png)
+
 ## What Hyperlane Does
 
 ### Interactive Career Map
