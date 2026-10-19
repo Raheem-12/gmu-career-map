@@ -1,16 +1,16 @@
 # Hyperlane — GMU CS Career Map
 
-Hyperlane is a project I built to help George Mason University computer science students better understand how their coursework connects to careers in tech.
+**GMU Computer Science Career Map | AWS Deployment | RAG AI Prototype**
+
+Hyperlane is an interactive career exploration platform I built to help George Mason University computer science students understand how their coursework connects to careers in tech.
 
 Throughout my degree, I've sometimes struggled to see how certain concepts I'm learning in class apply to actual jobs in the industry. I wanted to build something that makes those connections easier to understand.
 
 The project also gave me an opportunity to gain hands-on experience with two areas I've been interested in: **Cloud Engineering and AI Engineering**.
 
-## Live Demo
+**[Live Demo](http://3.239.184.192) | [GitHub Repository](https://github.com/Raheem-12/gmu-career-map)**
 
-**Website:** http://3.239.184.192
-
-The Career Map is publicly deployed on AWS. Quasar AI, the RAG-based study assistant, currently runs locally and is not yet integrated into the live website.
+**Project status:** The Career Map is publicly deployed on AWS. Quasar AI, the RAG-based study assistant, currently runs locally and is not yet integrated into the live website.
 
 ## What Hyperlane Does
 
