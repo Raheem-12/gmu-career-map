@@ -494,3 +494,18 @@ dialog::backdrop {
     transform: translate3d(-0.8%, 0.6%, 0);
   }
 }
+
+.quasar-coming-soon {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  margin-left: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 999px;
+  color: #a8b8cc;
+  background: rgba(148, 163, 184, 0.06);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}

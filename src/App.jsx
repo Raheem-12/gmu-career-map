@@ -1,3 +1,4 @@
+import HomePage from "./HomePage.jsx";
 import AiLearningStrategy, { CourseLearningTip } from "./features/ai-learning/AiLearningStrategy.jsx";
 import {
 
@@ -2541,25 +2542,34 @@ function AppContent({ active, onOpenStrategy }) {
 }
 
 function App() {
-  const [activePage, setActivePage] = useState("map");
+  const [activePage, setActivePage] = useState("home");
   const strategyRef = useRef(null);
+  const homeRef = useRef(null);
+  const openMap = useCallback(() => setActivePage("map"), []);
   const mapButtonRef = useRef(null);
   const openStrategy = useCallback(() => setActivePage("strategy"), []);
 
   useEffect(() => {
-    if (activePage === "strategy") strategyRef.current?.focus();
+    if (activePage === "strategy") strategyRef.current?.focus({ preventScroll: true });
+    if (activePage === "home") homeRef.current?.focus({ preventScroll: true });
+    if (activePage === "map") mapButtonRef.current?.focus({ preventScroll: true });
   }, [activePage]);
 
   return (
     <ReactFlowProvider>
-      <div className="ai-strategy-shell">
+      <div className="ai-strategy-shell hl-home-shell">
         <TrackingHeader>
         <nav className="ai-strategy-navigation" aria-label="Hyperlane navigation">
+          <button type="button" aria-current={activePage === "home" ? "page" : undefined} aria-controls="hyperlane-home-page" onClick={() => setActivePage("home")}>Home</button>
           <button ref={mapButtonRef} type="button" aria-current={activePage === "map" ? "page" : undefined} aria-controls="hyperlane-map-page" onClick={() => setActivePage("map")}>Career Map</button>
           <button type="button" aria-current={activePage === "strategy" ? "page" : undefined} aria-controls="hyperlane-strategy-page" onClick={openStrategy}>AI-Era Learning Strategy</button>
+          <span className="hl-nav-coming">Quasar AI <small>Coming Soon</small></span>
         </nav>
         </TrackingHeader>
         <div className="ai-strategy-workspace">
+          <main id="hyperlane-home-page" ref={homeRef} tabIndex={-1} className="hl-home-surface" hidden={activePage !== "home"} aria-label="Hyperlane Home">
+            <HomePage active={activePage === "home"} onExploreMap={openMap} onExploreStrategy={openStrategy} />
+          </main>
           <div id="hyperlane-map-page" className="ai-strategy-map-surface" data-active={activePage === "map"} inert={activePage !== "map"} aria-hidden={activePage !== "map"}>
             <AppContent active={activePage === "map"} onOpenStrategy={openStrategy} />
           </div>
