@@ -1,0 +1,150 @@
+
+name: Deploy Hyperlane to AWS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: hyperlane-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::584998371384:role/HyperlaneGitHubActionsRole
+          aws-region: us-east-1
+
+      - name: Log in to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        run: |
+          IMAGE="584998371384.dkr.ecr.us-east-1.amazonaws.com/hyperlane"
+          docker build --platform linux/amd64 -t "$IMAGE:${{ github.sha }}" .
+          docker push "$IMAGE:${{ github.sha }}"
+
+      - name: Deploy to EC2 using SSM
+        run: |
+          IMAGE="584998371384.dkr.ecr.us-east-1.amazonaws.com/hyperlane:${{ github.sha }}"
+
+          cat > deploy-script.sh <<'SCRIPT'
+          set -eu
+
+          IMAGE="__IMAGE__"
+
+          aws ecr get-login-password --region us-east-1 |
+            sudo docker login --username AWS --password-stdin 584998371384.dkr.ecr.us-east-1.amazonaws.com
+
+          sudo docker pull "$IMAGE"
+
+          # Test the new image without replacing the live site.
+          sudo docker rm -f hyperlane-test 2>/dev/null || true
+          sudo docker run -d --name hyperlane-test -p 127.0.0.1:8081:80 "$IMAGE"
+
+          sleep 3
+          curl --fail --silent --show-error http://127.0.0.1:8081/ > /dev/null
+
+          sudo docker rm -f hyperlane-test
+
+          # Preserve the previous container for rollback.
+          sudo docker rm -f hyperlane-previous 2>/dev/null || true
+          sudo docker stop hyperlane-web
+          sudo docker rename hyperlane-web hyperlane-previous
+
+          if ! sudo docker run -d --name hyperlane-web --restart unless-stopped -p 80:80 "$IMAGE"; then
+            sudo docker rm -f hyperlane-web 2>/dev/null || true
+            sudo docker rename hyperlane-previous hyperlane-web
+            sudo docker start hyperlane-web
+            exit 1
+          fi
+
+          sleep 3
+
+          if ! curl --fail --silent --show-error http://127.0.0.1/ > /dev/null; then
+            echo "Health check failed. Restoring previous container."
+            sudo docker rm -f hyperlane-web
+            sudo docker rename hyperlane-previous hyperlane-web
+            sudo docker start hyperlane-web
+            exit 1
+          fi
+
+          echo "New Hyperlane deployment is healthy."
+          SCRIPT
+
+          sed -i "s|__IMAGE__|$IMAGE|g" deploy-script.sh
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          script = Path("deploy-script.sh").read_text()
+          Path("deploy-commands.json").write_text(
+              json.dumps({"commands": [script]})
+          )
+          PY
+
+          COMMAND_ID=$(aws ssm send-command \
+            --region us-east-1 \
+            --instance-ids i-0857b2538be2a85a5 \
+            --document-name AWS-RunShellScript \
+            --parameters file://deploy-commands.json \
+            --query "Command.CommandId" \
+            --output text)
+
+          for i in {1..30}; do
+            STATUS=$(aws ssm get-command-invocation \
+              --region us-east-1 \
+              --command-id "$COMMAND_ID" \
+              --instance-id i-0857b2538be2a85a5 \
+              --query "Status" \
+              --output text 2>/dev/null) || STATUS="Pending"
+
+            echo "Deployment status: $STATUS"
+
+            if [ "$STATUS" = "Success" ]; then
+              break
+            fi
+
+            if [[ "$STATUS" = "Failed" || "$STATUS" = "Cancelled" || "$STATUS" = "TimedOut" || "$STATUS" = "Cancelling" ]]; then
+              echo "EC2 deployment failed."
+              aws ssm get-command-invocation \
+                --region us-east-1 \
+                --command-id "$COMMAND_ID" \
+                --instance-id i-0857b2538be2a85a5 \
+                --query "StandardErrorContent" \
+                --output text
+              exit 1
+            fi
+
+            if [ "$i" -eq 30 ]; then
+              echo "Deployment timed out."
+              exit 1
+            fi
+
+            sleep 5
+          done
+
+          echo "Checking public Hyperlane website..."
+
+          for i in {1..10}; do
+            if curl --fail --silent --max-time 5 http://3.239.184.192/ > /dev/null; then
+              echo "Hyperlane is responding successfully!"
+              exit 0
+            fi
+            sleep 3
+          done
+
+          echo "Public website health check failed."
+          exit 1
