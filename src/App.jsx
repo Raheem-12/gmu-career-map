@@ -1,5 +1,6 @@
 import HomePage from "./HomePage.jsx";
 import AiLearningStrategy, { CourseLearningTip } from "./features/ai-learning/AiLearningStrategy.jsx";
+import WhatsNext from "./WhatsNext";
 import {
 
   useCallback,
@@ -2507,7 +2508,7 @@ function AppContent({ active, onOpenStrategy }) {
           className={
             viewMode === "intelligence"
               ? "hidden"
-              : "flex min-h-0 min-w-0 flex-col overflow-hidden"
+              : "relative flex min-h-0 min-w-0 flex-col overflow-hidden"
           }
         >
           <TrajectoryHeader
@@ -2526,6 +2527,58 @@ function AppContent({ active, onOpenStrategy }) {
             progressEnabled={progressEnabled}
             completedCourses={completedCourses}
           />
+          {viewMode === "galaxy" && context.selectedCourse && (
+  <aside
+    aria-label="Selected course details"
+    className="absolute bottom-16 left-4 z-20 max-h-[65vh] w-[min(380px,calc(100%-2rem))] overflow-y-auto border border-slate-700 bg-[#080e18] p-5 shadow-2xl"
+  >
+    <div className="flex items-start justify-between gap-4">
+      <div>
+        <p className="text-[11px] uppercase tracking-widest text-emerald-300">
+          Course signal
+        </p>
+        <h2 className="mt-2 text-xl font-semibold text-white">
+          {context.selectedCourse.code}
+        </h2>
+        <p className="mt-1 text-sm text-slate-300">
+          {context.selectedCourse.title}
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => selectCourse(null)}
+        aria-label="Close course details"
+        className="text-lg text-slate-400 hover:text-white"
+      >
+        ×
+      </button>
+    </div>
+
+    {context.courseIntelligence && (
+      <div className="mt-5 space-y-4 text-sm leading-6 text-slate-300">
+        <p>{context.courseIntelligence.overview}</p>
+
+        {context.activeCareer && (
+          <div className="border-t border-slate-800 pt-4">
+            <p className="mb-2 text-xs text-emerald-300">
+              Relevance to {context.activeCareer.name}
+            </p>
+            <p>{context.courseIntelligence.careerRelevance}</p>
+          </div>
+        )}
+      </div>
+    )}
+
+    <button
+      type="button"
+      onClick={() => changeView("intelligence")}
+      className="mt-5 w-full border border-emerald-500/40 px-4 py-3 text-xs text-emerald-200 transition-colors hover:bg-emerald-500/10"
+    >
+      Open Course Intelligence →
+    </button>
+  </aside>
+)}
         </div>
       </main>
 
@@ -2563,7 +2616,14 @@ function App() {
           <button type="button" aria-current={activePage === "home" ? "page" : undefined} aria-controls="hyperlane-home-page" onClick={() => setActivePage("home")}>Home</button>
           <button ref={mapButtonRef} type="button" aria-current={activePage === "map" ? "page" : undefined} aria-controls="hyperlane-map-page" onClick={() => setActivePage("map")}>Career Map</button>
           <button type="button" aria-current={activePage === "strategy" ? "page" : undefined} aria-controls="hyperlane-strategy-page" onClick={openStrategy}>AI-Era Learning Strategy</button>
-          <span className="hl-nav-coming">Quasar AI <small>Coming Soon</small></span>
+          <span className="hl-nav-coming">Quasar AI <small>Coming Soon</small></span> <button
+  type="button"
+  aria-current={activePage === "next" ? "page" : undefined}
+  aria-controls="hyperlane-next-page"
+  onClick={() => setActivePage("next")}
+>
+  What's Next
+</button>
         </nav>
         </TrackingHeader>
         <div className="ai-strategy-workspace">
@@ -2582,6 +2642,14 @@ function App() {
           }}>
             <AiLearningStrategy careers={CAREERS} />
           </main>
+          <main
+  id="hyperlane-next-page"
+  className="ai-strategy-reading-surface"
+  hidden={activePage !== "next"}
+  aria-label="What's Next for Hyperlane"
+>
+  <WhatsNext />
+</main>
         </div>
       </div>
     </ReactFlowProvider>
